@@ -25,12 +25,27 @@ $ docker images
 
 ```
 
+* Prepare to container
+
+```command
+$ cd /home/docker/uniJOb
+$ vi crontab
+...
+$ vi ora.env
+...
+```
+Prepare tnsnames.ora file in directory which is defined in ora.env file 
+
 * Run container
 
 ```linux
 $ docker run -d -l uniJob1 --name=uniJob1 -v /home/docker/uniJob:/uniJob -v /home/docker/uniJob/crontab:/uniJob/crontab unijob:centos6 
-$ docker ps 
 
+$ docker run -d -l uniJob1 --name=uniJob1 -v /home/docker/uniJob:/uniJob unijob:centos6 
+...
+$ docker ps 
+CONTAINER ID        IMAGE                   COMMAND                  CREATED             STATUS              PORTS                   NAMES
+afe85f693b4f        unijob:centos6          "/usr/bin/supervisord"   5 seconds ago       Up 3 seconds                                uniJob1
 $ docker exec -it uniJob1 /bin/bash
 $ crontab -l
 
@@ -40,8 +55,15 @@ $ crontab -l
 
 ```shell
 $ vi /home/docker/uniJob/crontab
-
-$ docker exec -it uniJob1 /bin/bash
-$ crontab -e
-
+...
+$ docker restart uniJob1
+...
 ```
+
+sqlplus: error while loading shared libraries: libaio.so.1: cannot open shared object file: No such file or directory
+
+$ go build purge_oralog.go
+
+ls -l purge_oralog*
+
+

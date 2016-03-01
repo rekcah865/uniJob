@@ -17,10 +17,14 @@ ADD ./uniJob_supervisor.conf /etc/supervisor.conf
 
 ## Cron, Postfix, ksh
 RUN yum -y install vixie-cron mailx ksh postfix unzip
+#sed -ri 's/^#mydomain = domain.tld/mydomain = xxx.com/g' /etc/postfix/main.cf
 
 ## Oracle Instant client
-## Download - http://download.oracle.com/otn/linux/instantclient/121020/instantclient-basic-linux.x64-12.1.0.2.0.zip
+RUN yum -y install libaio
+## Download - http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html
 ADD ./instantclient-basic-linux.x64-12.1.0.2.0.zip /tmp
-RUN cd /opt && unzip /tmp/instantclient-basic-linux.x64-12.1.0.2.0.zip && rm /tmp/instantclient-basic-linux.x64-12.1.0.2.0.zip
+RUN cd /opt && unzip /tmp/instantclient-basic-linux.x64-12.1.0.2.0.zip && rm 	/tmp/instantclient-basic-linux.x64-12.1.0.2.0.zip
+ADD ./instantclient-sqlplus-linux.x64-12.1.0.2.0.zip /tmp
+RUN cd /opt && unzip /tmp/instantclient-sqlplus-linux.x64-12.1.0.2.0.zip && rm /tmp/instantclient-sqlplus-linux.x64-12.1.0.2.0.zip
 
 ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisor.conf"]
