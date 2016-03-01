@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+######################################################################################
+## Program: ora_sql
+## Purpose: It used to login remote Oracle database to run SQL script in Linux/Unix platform 
+##          It used to hide password while it uses sqlplus command 
+## Usage:   ora_sql [-L|-S] -t <TNS_String> -u <ORAUSER> -f <SQL File> -p pars1[,pars2,...]
+## Required:  sqlplus - from Oracle client or instant client
+##+           orapass - used to get Oracle account password
+## Version: 1.0
+## Author:  rekcah865@gmail.com
+## Revision History
+##+         Wei.Shen	v1.0	Feb 18 2016	Creation
+##+         Wei.Shen	v1.1	Feb 18 2016	Support parameter for SQL file 
+##
+######################################################################################
+
+## For variables and error check
+set -o nounset
+set -o errexit
+
+## Debug output for tracking
+# set -o xtrace
+
+## Program information
+PP=$(cd $(dirname $0) && pwd)
+PN=$(basename $0)
+VER=1.0
+
+## Function list
+usage() { echo -e "\n$PN v$VER \n$PN [Options:-S/-L] -t <TNS_String> -u <ORAUSER> -f <SQL File>\n";}
+
+## Oracle environment set
+[[ -f $PP/ora.env ]] && source $PP/ora.env
+export PATH=$PP:${PATH}
+
+## Required Command check
+BINS=(echo orapass sqlplus)
+for BIN in "${BINS[@]}"; do
+	[[ ! "$(command -v "$BIN")" ]] && echo "$BIN is not installed. Exit.." && exit 1
+done
+
+## Initial variable
+OPTION=
+TNS=
+ORAUSER=
+PASSWD=
+SQLFILE=
+PARS=
+
+## Parse parameter
+while getopts LSt:u:f:p: next; do
+	case $next in
+		L)OPTION="$OPTION -L" ;;
+		S)OPTION="$OPTION -S" ;;
+		t)TNS=$OPTARG ;;
+		u)ORAUSER=$OPTARG ;;
+		f)SQLFILE=$OPTARG ;;
+		p)PARS=$OPTARG ;;
+		*)usage && exit 1 ;;
+	esac
+done
+
+#if [[ "$TNS" == "" -o "$ORAUSER" == "" -o "$SQLFILE" == "" ]]; then
+if [[ $TNS == "" || $ORAUSER == "" || $SQLFILE == "" ]]; then
+	echo "[ORA-]Miss define for variable TNS,ORAUSER,SQLFILE"
+	echo ""
+	usage
+	exit 1
+fi
+
+## password check
+PASSWD=$(orapass ${ORAUSER})
+[[ -z $PASSWD ]] && echo "[ORA-]Can not get password of $ORAUSER from orapass! Exit.." && exit 1
+
+#sqlplus $OPTION $ORAUSER/$PASSWD@$TNS @$SQLFILE |sed '/^$/d'
+sqlplus $OPTION $ORAUSER/$PASSWD@$TNS @$SQLFILE $PARS|sed '/^$/d'
+
+exit 0
