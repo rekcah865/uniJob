@@ -44,7 +44,7 @@ Unify cronjob out of Oracle DB server with Docker container
 	Used to purge table(such as monitor,trans_Hourly,msg,msg_source) for remote Oracle database 
 	
 	```	
-		Usage: 
+	Usage
 		purge_table.sh -t <tns_string1[,string2]> -u <username> -t <table name :monitor|trans|msg>
 	```
 	
@@ -53,7 +53,7 @@ Unify cronjob out of Oracle DB server with Docker container
 	Used to purge Oracle trace or audit file in Oracle RDBMS or Oracle Grid Infrastructure 
 	
 	```
-		Usage
+	Usage
 		purge_oralog -h <Host/IP> -t <Type: oracle|grid> -u <User>
 		
 		Default value h=**** -t=oracle -u=oracle   

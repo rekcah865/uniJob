@@ -8,7 +8,7 @@
 ##			 config file (default: tbs.conf) - include tns user threshold
 ##			 example: szdprlss1a, index_admin, 80
 ##	
-## Version: 1.0
+## Version: 1.1
 ## Author:  rekcah865@gmail.com
 ## Revision History
 ##+         Wei.Shen	v1.0	Feb 19 2016	Creation
