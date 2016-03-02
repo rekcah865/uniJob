@@ -3,24 +3,25 @@ Unify cronjob out of Oracle DB server with Docker container
  
 ### uniJob Script
 
-* Tablespace monitor (tbs_monitor.sh)[tbs_monitor.sh]
+* Tablespace monitor [tbs_monitor.sh](tbs_monitor.sh)
+
 	Used to monitor Tablespace of Oracle database which defined by configuration file 
 	Usage: tbs_monitor.sh.sh -f <configuration file: default - tbs.conf>
 	
-* Gather stats (gather_stats.sh)[gather_stats.sh]
-* Index Rebuild (index_rebuild.sh)[index_rebuild.sh]
-* Grant Role (grant_role.sh)[grant_role.sh]
-* Purge data of table (purge_table.sh)[purge_table.sh]
-* Purge Oracle log(trace,log) (purge_oralog.go)[purge_oralog.go]
-* Remote sql (rsql.sh)[]
+* Gather stats [gather_stats.sh](gather_stats.sh)
+* Index Rebuild [index_rebuild.sh](index_rebuild.sh)
+* Grant Role [grant_role.sh](grant_role.sh)
+* Purge data of table [purge_table.sh](purge_table.sh)
+* Purge Oracle log(trace,log) [purge_oralog.go](purge_oralog.go)
+* Remote sql [](rsql.sh)
 
 ### uniJob in Docker
 
 * Build image which includes cron, oracle instant client
 
-	- Download (Oracle 12.1 instant client)[http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html]
-	- Edit supervisor file *(uniJob_supervisor.conf)[uniJob_supervisor.conf]*
-	- Edit docker file *(uniJob.dockerfile)[uniJob.dockerfile]*
+	- Download [Oracle 12.1 instant client](http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html)
+	- Edit supervisor file *[uniJob_supervisor.conf](uniJob_supervisor.conf)*
+	- Edit docker file *[uniJob.dockerfile](uniJob.dockerfile)*
 	
 ```command
 $ pwd
