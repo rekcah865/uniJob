@@ -48,13 +48,13 @@ Unify cronjob out of Oracle DB server with Docker container
 		purge_table.sh -t <tns_string1[,string2]> -u <username> -t <table name :monitor|trans|msg>
 	```
 	
-* Purge Oracle log(trace,log) - *[purge_oralog.go](purge_oralog.go)*
+* Purge database(Oracle,PosstgreSQL) log(trace,log) - *[purge_dblog.go](purge_dblog.go)*
 
-	Used to purge Oracle trace or audit file in Oracle RDBMS or Oracle Grid Infrastructure 
+	Used to purge Oracle trace or audit file in Oracle RDBMS or Oracle Grid Infrastructure or log file in PostgreSQL database
 	
 	```
 	Usage
-		purge_oralog -h <Host/IP> -t <Type: oracle|grid> -u <User>
+		purge_dblog -h <Host/IP> -t <Type: oracle|grid|postgres> -u <User>
 		
 		Default value h=**** -t=oracle -u=oracle   
 		user is to connect remote server with ssh and it can get password from orapass
