@@ -92,7 +92,7 @@ run_stats() {
 ## Process check - Alert if previous running
 MAIL_SENDER=FIS.Notice@xxx.com
 MAIL_RCV=rekcah865@gmail.com
-if [[ $(ps -ef|grep "${PN}.sh $*"|grep -v $$|grep -v grep|wc -l) -ge 1 ]]; then
+if [[ $(ps -ef|grep "${PN}.sh $*"|grep -v $$|grep -v grep|wc -l) -gt 1 ]]; then
 	log "Found last time $PN is running. Exit.."
 	MAIL_TITLE="Duplicated process $PN found"
 	ps -ef|grep "${PN}.sh $*" | mailx -s "${MAIL_TITLE}" -r "${MAIL_SENDER}" "${MAIL_RCV}"	
